@@ -1,6 +1,6 @@
 {
   "name": "PS VPN",
-  "description": "Supreme high-speed VPN with 50+ global nodes and military-grade encryption.",
+  "description": "Supreme high-speed VPN with 150+ global nodes and military-grade encryption.",
   "requestFramePermissions": [],
-  "majorCapabilities": ["50+ Global Servers", "One-Tap Connection", "Military-grade Encryption"]
+  "majorCapabilities": ["150+ Global Servers", "One-Tap Connection", "Military-grade Encryption"]
 }
