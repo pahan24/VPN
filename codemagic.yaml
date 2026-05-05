@@ -7,7 +7,7 @@ workflows:
       events:
         - push
     environment:
-      node: 20.11.0
+      node: 22.14.0
       groups:
         - android-signing
     scripts:
@@ -41,7 +41,7 @@ workflows:
       events:
         - push
     environment:
-      node: 20.11.0
+      node: 22.14.0
     scripts:
       - name: Install dependencies
         script: |
