@@ -161,21 +161,23 @@ export const Dashboard = () => {
   };
 
   return (
-    <div className="w-full h-screen bg-bg-main text-white font-sans flex overflow-hidden relative sri-lankan-pattern">
-      {/* Decorative SVG Motif */}
-      <div className="absolute top-0 right-0 w-1/3 h-full opacity-5 pointer-events-none">
-        <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
-          <path d="M0,50 Q25,0 50,50 T100,50" fill="none" stroke="white" strokeWidth="0.5" />
-          <path d="M0,60 Q25,10 50,60 T100,60" fill="none" stroke="white" strokeWidth="0.5" />
-          <path d="M0,40 Q25,-10 50,40 T100,40" fill="none" stroke="white" strokeWidth="0.5" />
-        </svg>
+    <div className="w-full h-screen bg-bg-main text-white font-sans flex flex-col md:flex-row overflow-hidden relative sri-lankan-pattern">
+      {/* Mobile Header */}
+      <div className="md:hidden flex items-center justify-between p-4 bg-bg-secondary border-b border-white/10 z-30">
+        <div className="flex items-center gap-2">
+          <VPNLogo className="scale-50" />
+          <span className="text-lg font-bold tracking-tight uppercase italic">PS<span className="text-brand-gold">VPN</span></span>
+        </div>
+        <button onClick={() => setShowServers(true)} className="p-2 bg-white/5 rounded-lg text-brand-gold text-xs font-black italic border border-white/10 uppercase tracking-widest">
+           {selectedServer.flag} Nodes
+        </button>
       </div>
 
       {/* Sidebar */}
-      <aside className="w-64 border-r border-white/10 bg-bg-secondary p-6 flex flex-col relative z-20">
-        <div className="flex items-center gap-3 mb-12">
+      <aside className={`fixed inset-y-0 left-0 z-50 w-64 border-r border-white/10 bg-bg-secondary p-6 flex flex-col transition-transform duration-300 md:relative md:translate-x-0 ${activeTab === 'mobile-menu' ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}>
+        <div className="hidden md:flex items-center gap-3 mb-10">
           <VPNLogo className="scale-75" />
-          <span className="text-xl font-bold tracking-tight uppercase">PS<span className="text-brand-gold">VPN</span></span>
+          <span className="text-xl font-bold tracking-tight uppercase italic">PS<span className="text-brand-gold">VPN</span></span>
         </div>
 
         <nav className="space-y-4">
@@ -186,14 +188,8 @@ export const Dashboard = () => {
             onClick={() => setActiveTab('dashboard')} 
           />
           <MenuBtn 
-            icon={<Globe size={18} />} 
-            label="Server List" 
-            isActive={showServers} 
-            onClick={() => setShowServers(true)} 
-          />
-          <MenuBtn 
             icon={<Zap size={18} />} 
-            label="Speed Test" 
+            label="Speed test" 
             isActive={activeTab === 'security'} 
             onClick={() => setActiveTab('security')} 
           />
@@ -205,7 +201,7 @@ export const Dashboard = () => {
           />
         </nav>
 
-        <div className="mt-auto">
+        <div className="mt-auto hidden md:block">
           <div className="p-4 bg-gradient-to-br from-[#1a1f2e] to-bg-main border border-white/5 rounded-2xl">
             <p className="text-[10px] text-white/40 mb-2 uppercase tracking-widest font-mono font-bold italic">Network Status</p>
             <p className="text-sm font-semibold">GLOBAL FREE ACCESS</p>
@@ -217,22 +213,22 @@ export const Dashboard = () => {
       </aside>
 
       {/* Main Content Area */}
-      <main className="flex-1 p-10 flex flex-col relative z-20 overflow-y-auto">
+      <main className="flex-1 p-5 md:p-10 flex flex-col relative z-20 overflow-y-auto">
         {activeTab === 'dashboard' ? (
           <>
-            <header className="flex justify-between items-center mb-12">
+            <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8 md:mb-12">
               <div>
-                <h1 className="text-3xl font-light text-white/90 italic tracking-tighter">Welcome to <span className="font-bold">PS VPN</span></h1>
-                <p className="text-white/40 text-sm tracking-widest uppercase text-[10px]">{isConnected ? 'Your global tunnel is active and secure' : 'Warning: Your real location is visible'}</p>
+                <h1 className="text-2xl md:text-3xl font-light text-white/90 italic tracking-tighter">Welcome to <span className="font-bold">PS VPN</span></h1>
+                <p className="text-white/40 text-[10px] tracking-widest uppercase mt-1">{isConnected ? 'Your global tunnel is active' : 'Warning: Real location visible'}</p>
               </div>
-              <div className="flex gap-10">
+              <div className="flex gap-10 w-full md:w-auto">
                 <HeaderStat label="NETWORK IP" value={stats.ip} />
-                <HeaderStat label="PROTOCOL" value={isConnected ? 'OpenVPN / AES-256' : 'INSECURE'} />
+                <HeaderStat label="PROTOCOL" value={isConnected ? 'Supreme L3' : 'INSECURE'} />
               </div>
             </header>
 
-            <div className="flex-1 flex flex-col items-center justify-center relative py-12">
-              <div className={`absolute w-[500px] h-[500px] blur-[120px] rounded-full transition-colors duration-1000 ${
+            <div className="flex-1 flex flex-col items-center justify-center relative py-6 md:py-12">
+              <div className={`absolute w-[300px] md:w-[500px] h-[300px] md:h-[500px] blur-[80px] md:blur-[120px] rounded-full transition-colors duration-1000 ${
                 isConnected ? 'bg-brand-gold/10' : 'bg-brand-maroon/5'
               }`} />
               
@@ -241,76 +237,76 @@ export const Dashboard = () => {
                   {(isConnecting || isConnected) && (
                     <motion.div 
                       initial={{ opacity: 0, scale: 1 }}
-                      animate={{ opacity: 1, scale: 1.5 }}
+                      animate={{ opacity: 1, scale: 1.4 }}
                       exit={{ opacity: 0 }}
-                      transition={{ duration: 1, repeat: Infinity }}
-                      className="absolute inset-0 bg-white/5 rounded-full" 
+                      transition={{ duration: 1.5, repeat: Infinity }}
+                      className="absolute inset-0 bg-brand-gold/10 rounded-full" 
                     />
                   )}
                 </AnimatePresence>
 
                 <motion.div 
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className={`w-64 h-64 rounded-full border-4 flex items-center justify-center relative z-10 bg-bg-secondary shadow-2xl transition-all duration-700 ${
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className={`w-56 h-56 md:w-64 md:h-64 rounded-full border-4 flex items-center justify-center relative z-10 bg-bg-secondary shadow-2xl transition-all duration-700 ${
                     isConnected ? 'border-brand-gold shadow-brand-gold/20' : 'border-white/10'
                   }`}
                 >
-                  <div className="w-[240px] h-[240px] rounded-full border border-white/5 flex flex-col items-center justify-center bg-gradient-to-b from-[#161B26] to-bg-main">
+                  <div className="w-full h-full rounded-full border border-white/5 flex flex-col items-center justify-center bg-gradient-to-b from-[#161B26] to-bg-main p-8">
                     <div className={`transition-all duration-700 ${isConnected ? 'text-brand-gold' : 'text-white/20'}`}>
                       {isConnected ? (
-                        <ShieldCheck size={80} strokeWidth={1} />
+                        <ShieldCheck size={72} md:size={80} strokeWidth={1.5} />
                       ) : isConnecting ? (
-                        <Activity size={80} strokeWidth={1} className="animate-pulse" />
+                        <Activity size={72} md:size={80} strokeWidth={1.5} className="animate-pulse" />
                       ) : (
-                        <Zap size={80} strokeWidth={1} />
+                        <Zap size={72} md:size={80} strokeWidth={1.5} />
                       )}
                     </div>
-                    <span className={`text-[10px] tracking-[0.4em] uppercase mt-4 font-black ${isConnected ? 'text-brand-gold' : 'text-white/40'}`}>
+                    <span className={`text-[10px] tracking-[0.4em] uppercase mt-4 font-black text-center ${isConnected ? 'text-brand-gold' : 'text-white/40'}`}>
                       {isConnecting ? 'ESTABLISHING...' : isConnected ? 'DISCONNECT' : 'START TUNNEL'}
                     </span>
                   </div>
                 </motion.div>
               </div>
 
-              <div className="mt-12 text-center">
+              <div className="mt-8 md:mt-12 text-center">
                 <motion.p 
                   key={isConnected ? 'con' : 'dis'}
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
-                  className="text-2xl font-black italic mb-1 uppercase tracking-tighter"
+                  className="text-xl md:text-2xl font-black italic mb-1 uppercase tracking-tighter"
                 >
-                  {isConnected ? 'Supreme Protection Live' : 'Disconnected'}
+                  {isConnected ? 'Supreme Protection Live' : 'Not Protected'}
                 </motion.p>
-                <div className="flex flex-col items-center gap-1">
-                  <p className="text-white/30 text-[10px] uppercase font-mono tracking-[0.2em]">
+                <div className="flex flex-col items-center gap-1 px-4">
+                  <p className="text-white/30 text-[10px] uppercase font-mono tracking-[0.2em] leading-relaxed">
                     {isConnected ? `Secure node: ${selectedServer.name}` : 'Tap center button to connect global network'}
                   </p>
                   {isConnected && (
-                    <span className="text-[10px] text-brand-gold font-mono uppercase tracking-[0.3em]">
-                      {selectedServer.flag} {selectedServer.country} Node Stable
+                    <span className="text-[10px] text-brand-gold font-mono uppercase tracking-[0.3em] font-bold">
+                      {selectedServer.flag} {selectedServer.country} Node Stable • High Speed
                     </span>
                   )}
                 </div>
               </div>
             </div>
 
-            <div className="h-48 grid grid-cols-4 gap-6">
-              <div className="col-span-2 grid grid-cols-2 gap-4">
-                <StatSmall label="DOWNLOAD SPEED" value={isConnected ? `${stats.download} Mb/s` : '--'} />
-                <StatSmall label="UPLOAD SPEED" value={isConnected ? `${stats.upload} Mb/s` : '--'} />
-                <StatSmall label="LATENCY" value={isConnected ? `${stats.ping} ms` : '--'} />
-                <StatSmall label="ACTIVE SERVER" value={selectedServer.name} />
+            <div className="h-auto md:h-48 grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6 mt-8 md:mt-0">
+              <div className="md:col-span-2 grid grid-cols-2 gap-4">
+                <StatSmall label="DL RATE" value={isConnected ? `${stats.download} Mb/s` : '--'} />
+                <StatSmall label="UL RATE" value={isConnected ? `${stats.upload} Mb/s` : '--'} />
+                <StatSmall label="PING" value={isConnected ? `${stats.ping} ms` : '--'} />
+                <StatSmall label="LOAD" value={isConnected ? '8%' : '--'} />
               </div>
 
               <div 
                 onClick={() => setShowServers(true)}
-                className="col-span-2 bg-white/5 border border-white/10 rounded-2xl p-5 flex items-center justify-between hover:bg-white/10 transition-colors cursor-pointer group"
+                className="md:col-span-2 bg-white/5 border border-white/10 rounded-2xl p-4 md:p-5 flex items-center justify-between hover:bg-white/10 transition-colors cursor-pointer group"
               >
                 <div className="flex items-center gap-4">
-                  <div className="text-4xl drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]">{selectedServer.flag}</div>
+                  <div className="text-3xl md:text-4xl drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]">{selectedServer.flag}</div>
                   <div>
-                    <p className="font-black italic tracking-tighter text-xl uppercase">{selectedServer.name}</p>
+                    <p className="font-black italic tracking-tighter text-lg md:text-xl uppercase truncate max-w-[150px] md:max-w-none">{selectedServer.name}</p>
                     <p className="text-[10px] text-white/40 uppercase font-mono tracking-widest">{selectedServer.country} • Free Node</p>
                   </div>
                 </div>
@@ -326,11 +322,19 @@ export const Dashboard = () => {
         ) : (
           <SettingsSection />
         )}
+
+        {/* Mobile Navigation Bar */}
+        <div className="md:hidden fixed bottom-0 left-0 right-0 p-4 bg-bg-secondary/80 backdrop-blur-xl border-t border-white/10 z-30 flex items-center justify-around">
+          <MobileNavBtn icon={<LayoutDashboard size={20} />} active={activeTab === 'dashboard'} onClick={() => setActiveTab('dashboard')} />
+          <MobileNavBtn icon={<Zap size={20} />} active={activeTab === 'security'} onClick={() => setActiveTab('security')} />
+          <MobileNavBtn icon={<Globe size={20} />} active={showServers} onClick={() => setShowServers(true)} />
+          <MobileNavBtn icon={<Settings size={20} />} active={activeTab === 'settings'} onClick={() => setActiveTab('settings')} />
+        </div>
       </main>
 
 
       {/* Connection Detail Display */}
-      <div className="absolute top-10 right-10 w-48 bg-[#161B26]/80 backdrop-blur-xl border border-white/10 rounded-2xl p-4 z-30">
+      <div className="absolute top-4 md:top-10 left-4 md:right-10 md:left-auto md:w-48 bg-[#161B26]/80 backdrop-blur-xl border border-white/10 rounded-2xl p-4 z-30 pointer-events-none md:pointer-events-auto">
         <div className="flex justify-between items-end mb-4">
           <div>
             <p className="text-[10px] text-white/40 uppercase font-black tracking-widest font-mono">NODE LOAD</p>
@@ -365,7 +369,7 @@ export const Dashboard = () => {
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
-              className="fixed inset-y-0 right-0 w-[420px] bg-bg-secondary border-l border-white/10 z-50 p-8 flex flex-col gap-6 shadow-2xl"
+              className="fixed inset-y-0 right-0 w-full md:w-[420px] bg-bg-secondary border-l border-white/10 z-50 p-6 md:p-8 flex flex-col gap-6 shadow-2xl"
             >
               <div className="flex justify-between items-center mb-2">
                 <div>
@@ -499,13 +503,13 @@ const SpeedTestSection = ({ isConnected, selectedServer, stats }: { isConnected:
         <p className="text-[10px] text-white/40 uppercase font-mono tracking-widest mt-4">Analyze tunnel performance and stability</p>
       </header>
 
-      <div className="grid grid-cols-12 gap-8 flex-1">
-        <div className="col-span-8 flex flex-col gap-6">
-          <div className="bg-bg-secondary border border-white/5 rounded-3xl p-8 flex flex-col items-center justify-center relative overflow-hidden">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 flex-1">
+        <div className="md:col-span-8 flex flex-col gap-6">
+          <div className="bg-bg-secondary border border-white/5 rounded-3xl p-6 md:p-8 flex flex-col items-center justify-center relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-br from-brand-gold/5 opacity-20 pointer-events-none" />
             
             <div className="relative z-10 w-full flex flex-col items-center">
-              <div className="w-64 h-64 rounded-full border-8 border-white/5 flex items-center justify-center relative">
+              <div className="w-48 h-48 md:w-64 md:h-64 rounded-full border-8 border-white/5 flex items-center justify-center relative">
                  <motion.div 
                     animate={{ rotate: isTesting ? 360 : 0 }}
                     transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
@@ -513,14 +517,14 @@ const SpeedTestSection = ({ isConnected, selectedServer, stats }: { isConnected:
                     style={{ display: isTesting ? 'block' : 'none' }}
                  />
                  <div className="text-center">
-                   <p className="text-4xl font-black italic">{isTesting ? (currentTest.phase.includes('Download') ? currentTest.dl : currentTest.ul) : (isConnected ? stats.download : '0.0')}</p>
+                   <p className="text-3xl md:text-4xl font-black italic">{isTesting ? (currentTest.phase.includes('Download') ? currentTest.dl : currentTest.ul) : (isConnected ? stats.download : '0.0')}</p>
                    <p className="text-[10px] text-white/30 font-mono font-bold tracking-[0.3em] uppercase">Mb/s</p>
                  </div>
               </div>
               
-              <div className="mt-8 text-center">
-                <p className="text-xl font-black italic uppercase tracking-tighter">{currentTest.phase}</p>
-                <div className="w-96 h-1 bg-white/5 rounded-full mt-4 overflow-hidden">
+              <div className="mt-8 text-center w-full px-4">
+                <p className="text-lg md:text-xl font-black italic uppercase tracking-tighter">{currentTest.phase}</p>
+                <div className="w-full max-w-sm mx-auto h-1 bg-white/5 rounded-full mt-4 overflow-hidden">
                   <motion.div 
                     initial={{ width: 0 }}
                     animate={{ width: `${currentTest.progress}%` }}
@@ -532,7 +536,7 @@ const SpeedTestSection = ({ isConnected, selectedServer, stats }: { isConnected:
               <button 
                 onClick={runTest}
                 disabled={isTesting}
-                className={`mt-10 px-12 py-4 rounded-2xl font-black italic uppercase tracking-[0.2em] text-sm transition-all ${
+                className={`mt-10 w-full max-w-xs md:max-w-none md:px-12 py-4 rounded-2xl font-black italic uppercase tracking-[0.2em] text-sm transition-all ${
                   isTesting ? 'bg-white/5 text-white/20' : 'bg-brand-gold text-black hover:scale-105 active:scale-95 shadow-xl shadow-brand-gold/10'
                 }`}
               >
@@ -541,14 +545,14 @@ const SpeedTestSection = ({ isConnected, selectedServer, stats }: { isConnected:
             </div>
           </div>
 
-          <div className="grid grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 pb-24 md:pb-0">
              <StatBox label="LATENCY (PING)" value={isTesting ? `${currentTest.ping} ms` : (isConnected ? `${stats.ping} ms` : '--')} icon={<Activity size={16} />} />
              <StatBox label="TUNNEL JITTER" value={isTesting ? `${currentTest.jitter} ms` : (isConnected ? '2.1 ms' : '--')} icon={<Activity size={16} />} />
              <StatBox label="PACKET LOSS" value={isConnected ? '0.001%' : '--'} icon={<ShieldCheck size={16} />} />
           </div>
         </div>
 
-        <div className="col-span-4 flex flex-col gap-6">
+        <div className="md:col-span-4 flex flex-col gap-6">
           <div className="bg-white/5 border border-white/5 rounded-3xl p-6">
             <h4 className="text-xs font-black uppercase tracking-[0.2em] text-white/40 mb-6 font-mono">Tunnel Identity</h4>
             <div className="space-y-6">
@@ -594,36 +598,35 @@ const SettingsSection = () => {
         <p className="text-[10px] text-white/40 uppercase font-mono tracking-widest mt-4">Manage connection protocols and app behavior</p>
       </header>
 
-      <div className="space-y-4">
+      <div className="space-y-4 pb-24 md:pb-0">
         <SettingCard 
           title="Kill Switch" 
-          desc="Block internet access if VPN connection drops unexpectedly." 
+          desc="Internet blockage if VPN drops." 
           checked={settings.killSwitch} 
           onClick={() => toggle('killSwitch')}
         />
         <SettingCard 
           title="Auto-Connect" 
-          desc="Instantly establish tunnel on application launch." 
+          desc="Establish tunnel on launch." 
           checked={settings.autoConnect} 
           onClick={() => toggle('autoConnect')}
         />
         <SettingCard 
-          title="Split Tunneling" 
-          desc="Select specific applications to bypass the VPN tunnel." 
+          title="Split Tunnel" 
+          desc="Bypass the VPN tunnel." 
           checked={settings.splitTunnel} 
           onClick={() => toggle('splitTunnel')}
         />
         
-        <div className="bg-bg-secondary p-6 rounded-3xl border border-white/5 flex items-center justify-between group hover:border-brand-gold/30 transition-all">
+        <div className="bg-bg-secondary p-4 md:p-6 rounded-3xl border border-white/5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 group hover:border-brand-gold/30 transition-all">
           <div>
-            <h4 className="font-black italic uppercase tracking-tighter text-lg">Connection Protocol</h4>
-            <p className="text-xs text-white/30 font-mono">Supreme Mesh (UDP) Optimized for gaming and streaming</p>
+            <h4 className="font-black italic uppercase tracking-tighter text-lg">Protocol</h4>
+            <p className="text-[10px] text-white/30 font-mono">Optimized for gaming/streaming</p>
           </div>
-          <select className="bg-bg-main border border-white/10 rounded-xl px-4 py-2 text-xs font-black uppercase tracking-widest outline-none cursor-pointer hover:border-brand-gold transition-colors">
-            <option>Supreme Mesh (UDP)</option>
+          <select className="w-full md:w-auto bg-bg-main border border-white/10 rounded-xl px-4 py-2 text-xs font-black uppercase tracking-widest outline-none cursor-pointer hover:border-brand-gold transition-colors">
+            <option>Supreme Mesh</option>
             <option>OpenVPN (TCP)</option>
-            <option>WireGuard Core</option>
-            <option>Stealth Tunnel</option>
+            <option>WireGuard</option>
           </select>
         </div>
       </div>
@@ -673,4 +676,13 @@ const IdentityRow = ({ label, value }: { label: string; value: string }) => (
     <span className="text-[10px] text-white/30 font-mono font-bold uppercase tracking-widest">{label}</span>
     <span className="text-xs font-mono font-black italic">{value}</span>
   </div>
+);
+
+const MobileNavBtn = ({ icon, active, onClick }: { icon: React.ReactNode; active: boolean; onClick: () => void }) => (
+  <button 
+    onClick={onClick}
+    className={`p-3 rounded-2xl transition-all ${active ? 'bg-brand-gold text-black scale-110 shadow-lg shadow-brand-gold/20' : 'text-white/30'}`}
+  >
+    {icon}
+  </button>
 );

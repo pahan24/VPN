@@ -7,12 +7,14 @@ workflows:
       events:
         - push
     environment:
-      node: v18.16.0
+      node: 20.11.0
     scripts:
       - name: Install dependencies
-        script: npm install
+        script: |
+          npm install --include=optional --legacy-peer-deps
       - name: Build React App
-        script: npm run build
+        script: |
+          npm run build
     artifacts:
       - dist/**/*
 
@@ -21,15 +23,19 @@ workflows:
     max_build_duration: 60
     instance_type: mac_mini_m1
     environment:
-      node: v18.16.0
+      node: 20.11.0
       groups:
         - android-signing
     scripts:
       - name: Install dependencies
-        script: npm install
+        script: |
+          npm install --include=optional --legacy-peer-deps
+      - name: Build Web App
+        script: |
+          npm run build
       - name: Mobile Setup (Capacitor)
         script: |
-          npx cap add android
+          npx cap add android || true
           npx cap copy
           npx cap sync
       - name: Build Android APK
