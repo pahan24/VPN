@@ -14,24 +14,25 @@ workflows:
     scripts:
       - name: Install dependencies
         script: |
-          # Fix for potential native binding issues
-          rm -f package-lock.json
+          # Fresh install to avoid Tailwind native binding issues
+          rm -rf node_modules package-lock.json
           npm install --include=optional --legacy-peer-deps
-      - name: Build Web App
+      - name: Build and Setup Mobile
         script: |
+          # Build the web app first
           npm run build
-      - name: Mobile Setup (Capacitor)
-        script: |
-          # Initialize Android if not present
+          
+          # Initialize Capacitor Android
           if [ ! -d "android" ]; then
-            npx cap add android --package-id com.psvpn.app --app-name "PS VPN"
+            npx cap add android
           fi
-          npx cap sync
-          npx cap copy
+          
+          # Sync and Copy
+          npx cap sync android
+          npx cap copy android
       - name: Build Android APK
         script: |
           cd android
-          # Ensure gradlew is executable
           chmod +x gradlew
           ./gradlew assembleDebug
     artifacts:
