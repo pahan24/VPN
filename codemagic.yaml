@@ -8,12 +8,13 @@ workflows:
         - push
     environment:
       node: 22.14.0
+      java: 21
       groups:
         - android-signing
     scripts:
       - name: Install dependencies
         script: |
-          # Fix for Tailwind 4 native binding issues
+          # Fix for potential native binding issues
           rm -f package-lock.json
           npm install --include=optional --legacy-peer-deps
       - name: Build Web App
@@ -23,13 +24,16 @@ workflows:
         script: |
           # Initialize Android if not present
           if [ ! -d "android" ]; then
-            npx cap add android
+            npx cap add android --package-id com.psvpn.app --app-name "PS VPN"
           fi
-          npx cap copy
           npx cap sync
+          npx cap copy
       - name: Build Android APK
         script: |
-          cd android && ./gradlew assembleDebug
+          cd android
+          # Ensure gradlew is executable
+          chmod +x gradlew
+          ./gradlew assembleDebug
     artifacts:
       - android/app/build/outputs/apk/debug/*.apk
 
