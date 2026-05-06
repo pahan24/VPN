@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ShieldCheck, Globe, Zap, X, ChevronRight, Activity, Lock, Settings, LayoutDashboard } from 'lucide-react';
+import { ShieldCheck, Globe, Zap, X, ChevronRight, Activity, Lock, Settings, LayoutDashboard, Key } from 'lucide-react';
 import { Server, ConnectionStats } from '../types';
 import { VPNLogo } from './VPNLogo';
 
@@ -128,6 +128,7 @@ export const Dashboard = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
   const [isConnected, setIsConnected] = useState(false);
   const [isConnecting, setIsConnecting] = useState(false);
+  const [durationSeconds, setDurationSeconds] = useState(0);
   const [selectedServer, setSelectedServer] = useState<Server>(SERVERS[0]);
   const [showServers, setShowServers] = useState(false);
   const [stats, setStats] = useState<ConnectionStats>({
@@ -138,6 +139,25 @@ export const Dashboard = () => {
     ip: '112.134.120.45',
     location: 'Location (Exposed)'
   });
+
+  useEffect(() => {
+    let interval: any;
+    if (isConnected) {
+      interval = setInterval(() => {
+        setDurationSeconds(prev => prev + 1);
+      }, 1000);
+    } else {
+      setDurationSeconds(0);
+    }
+    return () => clearInterval(interval);
+  }, [isConnected]);
+
+  const formatDuration = (seconds: number) => {
+    const h = Math.floor(seconds / 3600).toString().padStart(2, '0');
+    const m = Math.floor((seconds % 3600) / 60).toString().padStart(2, '0');
+    const s = (seconds % 60).toString().padStart(2, '0');
+    return `${h}:${m}:${s}`;
+  };
 
   const handleConnect = () => {
     if (isConnected) {
@@ -165,17 +185,20 @@ export const Dashboard = () => {
       {/* Mobile Header */}
       <div className="md:hidden flex items-center justify-between p-4 bg-bg-secondary border-b border-white/10 z-30">
         <div className="flex items-center gap-2">
+          {isConnected && <Key size={16} className="text-brand-gold mr-1" />}
           <VPNLogo className="scale-50" />
           <span className="text-lg font-bold tracking-tight uppercase italic">PS<span className="text-brand-gold">VPN</span></span>
         </div>
-        <button onClick={() => setShowServers(true)} className="p-2 bg-white/5 rounded-lg text-brand-gold text-xs font-black italic border border-white/10 uppercase tracking-widest">
-           {selectedServer.flag} Nodes
+        <button onClick={() => setShowServers(true)} className="p-2 bg-white/5 rounded-lg text-brand-gold text-xs font-black italic border border-white/10 uppercase tracking-widest flex items-center gap-2">
+           <span>{formatDuration(durationSeconds)}</span>
+           <span className="border-l border-white/10 pl-2">{selectedServer.flag}</span>
         </button>
       </div>
 
       {/* Sidebar */}
       <aside className={`fixed inset-y-0 left-0 z-50 w-64 border-r border-white/10 bg-bg-secondary p-6 flex flex-col transition-transform duration-300 md:relative md:translate-x-0 ${activeTab === 'mobile-menu' ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}>
         <div className="hidden md:flex items-center gap-3 mb-10">
+          {isConnected && <Key size={24} className="text-brand-gold animate-pulse" />}
           <VPNLogo className="scale-75" />
           <span className="text-xl font-bold tracking-tight uppercase italic">PS<span className="text-brand-gold">VPN</span></span>
         </div>
@@ -221,8 +244,9 @@ export const Dashboard = () => {
                 <h1 className="text-2xl md:text-3xl font-light text-white/90 italic tracking-tighter">Welcome to <span className="font-bold">PS VPN</span></h1>
                 <p className="text-white/40 text-[10px] tracking-widest uppercase mt-1">{isConnected ? 'Your global tunnel is active' : 'Warning: Real location visible'}</p>
               </div>
-              <div className="flex gap-10 w-full md:w-auto">
+              <div className="flex gap-6 md:gap-10 w-full md:w-auto">
                 <HeaderStat label="NETWORK IP" value={stats.ip} />
+                <HeaderStat label="DURATION" value={formatDuration(durationSeconds)} />
                 <HeaderStat label="PROTOCOL" value={isConnected ? 'Supreme L3' : 'INSECURE'} />
               </div>
             </header>
