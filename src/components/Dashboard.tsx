@@ -298,33 +298,70 @@ export const Dashboard = () => {
   return (
     <div className="w-full h-screen bg-bg-main text-white font-sans flex flex-col md:flex-row overflow-hidden relative sri-lankan-pattern">
       {/* Android Status Bar Simulation */}
-      <div className="md:hidden w-full h-6 px-4 flex items-center justify-between text-[10px] font-bold bg-black/40 backdrop-blur-sm z-[60] border-b border-white/5">
+      <div className="md:hidden w-full h-7 px-4 flex items-center justify-between text-[11px] font-medium bg-black/60 backdrop-blur-md z-[70] fixed top-0 left-0 right-0">
         <div className="flex items-center gap-2">
-          <span>{currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })}</span>
-          {isConnected && <Key size={10} className="text-brand-gold ml-1 animate-pulse" />}
+          <span className="font-bold">{currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })}</span>
+          {isConnected && (
+            <motion.div 
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              className="flex items-center"
+            >
+              <Key size={10} className="text-brand-gold ml-1 animate-pulse" />
+            </motion.div>
+          )}
         </div>
-        <div className="flex items-center gap-2">
-          <Activity size={10} className="text-brand-gold" />
-          <div className="flex gap-0.5 items-end h-2">
-            <div className={`w-0.5 h-[40%] ${isConnected ? 'bg-brand-gold' : 'bg-white/40'}`} />
-            <div className={`w-0.5 h-[60%] ${isConnected ? 'bg-brand-gold' : 'bg-white/40'}`} />
-            <div className={`w-0.5 h-[80%] ${isConnected ? 'bg-white' : 'bg-white/40'}`} />
-            <div className={`w-0.5 h-full ${isConnected ? 'bg-white' : 'bg-white/40'}`} />
+        <div className="flex items-center gap-2.5">
+          {isConnected && <Activity size={10} className="text-brand-gold" />}
+          <div className="flex gap-0.5 items-end h-2.5">
+            <div className={`w-0.5 h-[40%] rounded-full ${isConnected ? 'bg-brand-gold' : 'bg-white/20'}`} />
+            <div className={`w-0.5 h-[60%] rounded-full ${isConnected ? 'bg-brand-gold' : 'bg-white/20'}`} />
+            <div className={`w-0.5 h-[80%] rounded-full ${isConnected ? 'bg-white' : 'bg-white/20'}`} />
+            <div className={`w-0.5 h-full rounded-full ${isConnected ? 'bg-white' : 'bg-white/20'}`} />
           </div>
-          <div className="w-4 h-2 border border-white/40 rounded-sm relative">
-            <div className="absolute inset-y-0 left-0 bg-white w-[90%]" />
+          <div className="flex items-center gap-1">
+            <span className="text-[9px]">4G+</span>
+          </div>
+          <div className="w-5 h-2.5 border border-white/30 rounded-[2px] relative p-[1px]">
+            <div className="h-full bg-white rounded-[1px] w-[85%]" />
+            <div className="absolute -right-1 top-1/2 -translate-y-1/2 w-0.5 h-1 bg-white/30 rounded-r-sm" />
           </div>
         </div>
       </div>
 
-      {/* Persistent Connection Toast */}
+      {/* Simulated System Notification Layer */}
+      <AnimatePresence>
+        {isConnected && (
+          <motion.div
+            initial={{ y: -100, opacity: 0 }}
+            animate={{ y: 28, opacity: 1 }}
+            exit={{ y: -100, opacity: 0 }}
+            className="fixed top-0 left-0 right-0 z-[65] px-2 md:hidden"
+          >
+            <div className="bg-zinc-900/95 border border-white/5 mx-auto rounded-2xl p-3 shadow-2xl backdrop-blur-2xl flex items-center gap-3">
+              <div className="w-10 h-10 bg-brand-gold/10 rounded-xl flex items-center justify-center border border-brand-gold/20">
+                <VPNLogo className="scale-[0.4]" />
+              </div>
+              <div className="flex-1">
+                <div className="flex justify-between items-center">
+                  <h4 className="text-[10px] font-black text-brand-gold italic tracking-widest">PS VPN ACTIVE</h4>
+                  <span className="text-[8px] text-white/30">Just now</span>
+                </div>
+                <p className="text-[11px] text-white/80 font-medium">Connected to {selectedServer.name} • {formatDuration(durationSeconds)}</p>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Persistent Connection Toast (Visual Confirmation) */}
       <AnimatePresence>
         {showToast && (
           <motion.div 
-            initial={{ y: -100, opacity: 0 }}
-            animate={{ y: 20, opacity: 1 }}
-            exit={{ y: -100, opacity: 0 }}
-            className="fixed top-12 left-1/2 -translate-x-1/2 z-[100] w-[90%] md:w-auto"
+            initial={{ y: 50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 50, opacity: 0 }}
+            className="fixed bottom-24 left-1/2 -translate-x-1/2 z-[100] w-[90%] md:w-auto"
           >
             <div className="bg-bg-secondary border border-white/10 px-6 py-3 rounded-2xl flex items-center gap-3 shadow-2xl backdrop-blur-xl">
               <div className="p-1.5 bg-brand-gold/20 rounded-lg">
