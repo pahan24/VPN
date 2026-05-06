@@ -5,7 +5,7 @@ import { Server, ConnectionStats } from '../types';
 import { VPNLogo } from './VPNLogo';
 
 const SERVERS: Server[] = [
-  // NORTH AMERICA (40)
+  // NORTH AMERICA (60+)
   { id: 'us-1', name: 'USA - Dallas', country: 'USA', flag: '🇺🇸', latency: 45, status: 'online', isPremium: false },
   { id: 'us-2', name: 'USA - Los Angeles', country: 'USA', flag: '🇺🇸', latency: 62, status: 'online', isPremium: false },
   { id: 'us-3', name: 'USA - New York', country: 'USA', flag: '🇺🇸', latency: 58, status: 'online', isPremium: false },
@@ -31,103 +31,189 @@ const SERVERS: Server[] = [
   { id: 'us-23', name: 'USA - San Jose', country: 'USA', flag: '🇺🇸', latency: 65, status: 'online', isPremium: false },
   { id: 'us-24', name: 'USA - Charlotte', country: 'USA', flag: '🇺🇸', latency: 63, status: 'online', isPremium: false },
   { id: 'us-25', name: 'USA - Indianapolis', country: 'USA', flag: '🇺🇸', latency: 60, status: 'online', isPremium: false },
-  { id: 'ca-1', name: 'Canada - Toronto', country: 'Canada', flag: '🇨🇦', latency: 85, status: 'online', isPremium: false },
-  { id: 'ca-2', name: 'Canada - Vancouver', country: 'Canada', flag: '🇨🇦', latency: 92, status: 'online', isPremium: false },
-  { id: 'ca-3', name: 'Canada - Montreal', country: 'Canada', flag: '🇨🇦', latency: 88, status: 'online', isPremium: false },
-  { id: 'ca-4', name: 'Canada - Calgary', country: 'Canada', flag: '🇨🇦', latency: 95, status: 'online', isPremium: false },
-  { id: 'ca-5', name: 'Canada - Ottawa', country: 'Canada', flag: '🇨🇦', latency: 89, status: 'online', isPremium: false },
-  { id: 'mx-1', name: 'Mexico - Mexico City', country: 'Mexico', flag: '🇲🇽', latency: 98, status: 'online', isPremium: false },
-  { id: 'mx-2', name: 'Mexico - Guadalajara', country: 'Mexico', flag: '🇲🇽', latency: 105, status: 'online', isPremium: false },
   { id: 'us-26', name: 'USA - New Orleans', country: 'USA', flag: '🇺🇸', latency: 72, status: 'online', isPremium: false },
   { id: 'us-27', name: 'USA - Memphis', country: 'USA', flag: '🇺🇸', latency: 68, status: 'online', isPremium: false },
   { id: 'us-28', name: 'USA - Oklahoma City', country: 'USA', flag: '🇺🇸', latency: 64, status: 'online', isPremium: false },
   { id: 'us-29', name: 'USA - El Paso', country: 'USA', flag: '🇺🇸', latency: 75, status: 'online', isPremium: false },
   { id: 'us-30', name: 'USA - Milwaukee', country: 'USA', flag: '🇺🇸', latency: 61, status: 'online', isPremium: false },
+  { id: 'us-31', name: 'USA - San Antonio', country: 'USA', flag: '🇺🇸', latency: 62, status: 'online', isPremium: false },
+  { id: 'us-32', name: 'USA - Columbus', country: 'USA', flag: '🇺🇸', latency: 58, status: 'online', isPremium: false },
+  { id: 'us-33', name: 'USA - Jacksonville', country: 'USA', flag: '🇺🇸', latency: 67, status: 'online', isPremium: false },
+  { id: 'us-34', name: 'USA - Fort Worth', country: 'USA', flag: '🇺🇸', latency: 61, status: 'online', isPremium: false },
+  { id: 'us-35', name: 'USA - Kansas City', country: 'USA', flag: '🇺🇸', latency: 59, status: 'online', isPremium: false },
+  { id: 'us-36', name: 'USA - Long Beach', country: 'USA', flag: '🇺🇸', latency: 66, status: 'online', isPremium: false },
+  { id: 'us-37', name: 'USA - Virginia Beach', country: 'USA', flag: '🇺🇸', latency: 56, status: 'online', isPremium: false },
+  { id: 'us-38', name: 'USA - Raleigh', country: 'USA', flag: '🇺🇸', latency: 61, status: 'online', isPremium: false },
+  { id: 'us-39', name: 'USA - Omaha', country: 'USA', flag: '🇺🇸', latency: 60, status: 'online', isPremium: false },
+  { id: 'us-40', name: 'USA - Oakland', country: 'USA', flag: '🇺🇸', latency: 68, status: 'online', isPremium: false },
+  { id: 'us-41', name: 'USA - Tulsa', country: 'USA', flag: '🇺🇸', latency: 63, status: 'online', isPremium: false },
+  { id: 'us-42', name: 'USA - Wichita', country: 'USA', flag: '🇺🇸', latency: 62, status: 'online', isPremium: false },
+  { id: 'us-43', name: 'USA - Bakersfield', country: 'USA', flag: '🇺🇸', latency: 70, status: 'online', isPremium: false },
+  { id: 'us-44', name: 'USA - Aurora', country: 'USA', flag: '🇺🇸', latency: 64, status: 'online', isPremium: false },
+  { id: 'ca-1', name: 'Canada - Toronto', country: 'Canada', flag: '🇨🇦', latency: 85, status: 'online', isPremium: false },
+  { id: 'ca-2', name: 'Canada - Vancouver', country: 'Canada', flag: '🇨🇦', latency: 92, status: 'online', isPremium: false },
+  { id: 'ca-3', name: 'Canada - Montreal', country: 'Canada', flag: '🇨🇦', latency: 88, status: 'online', isPremium: false },
+  { id: 'ca-4', name: 'Canada - Calgary', country: 'Canada', flag: '🇨🇦', latency: 95, status: 'online', isPremium: false },
+  { id: 'ca-5', name: 'Canada - Ottawa', country: 'Canada', flag: '🇨🇦', latency: 89, status: 'online', isPremium: false },
+  { id: 'ca-6', name: 'Canada - Quebec City', country: 'Canada', flag: '🇨🇦', latency: 91, status: 'online', isPremium: false },
+  { id: 'ca-7', name: 'Canada - Winnipeg', country: 'Canada', flag: '🇨🇦', latency: 99, status: 'online', isPremium: false },
+  { id: 'mx-1', name: 'Mexico - Mexico City', country: 'Mexico', flag: '🇲🇽', latency: 98, status: 'online', isPremium: false },
+  { id: 'mx-2', name: 'Mexico - Guadalajara', country: 'Mexico', flag: '🇲🇽', latency: 105, status: 'online', isPremium: false },
+  { id: 'mx-3', name: 'Mexico - Monterrey', country: 'Mexico', flag: '🇲🇽', latency: 102, status: 'online', isPremium: false },
 
-  // EUROPE (50)
+  // EUROPE (80+)
   { id: 'uk-1', name: 'UK - London', country: 'UK', flag: '🇬🇧', latency: 120, status: 'online', isPremium: false },
   { id: 'uk-2', name: 'UK - Manchester', country: 'UK', flag: '🇬🇧', latency: 125, status: 'online', isPremium: false },
   { id: 'uk-3', name: 'UK - Birmingham', country: 'UK', flag: '🇬🇧', latency: 122, status: 'online', isPremium: false },
   { id: 'uk-4', name: 'UK - Glasgow', country: 'UK', flag: '🇬🇧', latency: 128, status: 'online', isPremium: false },
+  { id: 'uk-5', name: 'UK - Leeds', country: 'UK', flag: '🇬🇧', latency: 126, status: 'online', isPremium: false },
+  { id: 'uk-6', name: 'UK - Edinburgh', country: 'UK', flag: '🇬🇧', latency: 130, status: 'online', isPremium: false },
   { id: 'de-1', name: 'Germany - Frankfurt', country: 'Germany', flag: '🇩🇪', latency: 140, status: 'online', isPremium: false },
   { id: 'de-2', name: 'Germany - Berlin', country: 'Germany', flag: '🇩🇪', latency: 145, status: 'online', isPremium: false },
   { id: 'de-3', name: 'Germany - Munich', country: 'Germany', flag: '🇩🇪', latency: 142, status: 'online', isPremium: false },
+  { id: 'de-4', name: 'Germany - Hamburg', country: 'Germany', flag: '🇩🇪', latency: 148, status: 'online', isPremium: false },
+  { id: 'de-5', name: 'Germany - Cologne', country: 'Germany', flag: '🇩🇪', latency: 146, status: 'online', isPremium: false },
   { id: 'fr-1', name: 'France - Paris', country: 'France', flag: '🇫🇷', latency: 135, status: 'online', isPremium: false },
   { id: 'fr-2', name: 'France - Marseille', country: 'France', flag: '🇫🇷', latency: 138, status: 'online', isPremium: false },
+  { id: 'fr-3', name: 'France - Lyon', country: 'France', flag: '🇫🇷', latency: 140, status: 'online', isPremium: false },
+  { id: 'fr-4', name: 'France - Nice', country: 'France', flag: '🇫🇷', latency: 142, status: 'online', isPremium: false },
   { id: 'nl-1', name: 'Netherlands - Amsterdam', country: 'Netherlands', flag: '🇳🇱', latency: 130, status: 'online', isPremium: false },
+  { id: 'nl-2', name: 'Netherlands - Rotterdam', country: 'Netherlands', flag: '🇳🇱', latency: 135, status: 'online', isPremium: false },
   { id: 'es-1', name: 'Spain - Madrid', country: 'Spain', flag: '🇪🇸', latency: 148, status: 'online', isPremium: false },
   { id: 'es-2', name: 'Spain - Barcelona', country: 'Spain', flag: '🇪🇸', latency: 152, status: 'online', isPremium: false },
+  { id: 'es-3', name: 'Spain - Valencia', country: 'Spain', flag: '🇪🇸', latency: 155, status: 'online', isPremium: false },
   { id: 'it-1', name: 'Italy - Milan', country: 'Italy', flag: '🇮🇹', latency: 142, status: 'online', isPremium: false },
   { id: 'it-2', name: 'Italy - Rome', country: 'Italy', flag: '🇮🇹', latency: 146, status: 'online', isPremium: false },
+  { id: 'it-3', name: 'Italy - Naples', country: 'Italy', flag: '🇮🇹', latency: 150, status: 'online', isPremium: false },
   { id: 'ch-1', name: 'Switzerland - Zurich', country: 'Switzerland', flag: '🇨🇭', latency: 138, status: 'online', isPremium: false },
+  { id: 'ch-2', name: 'Switzerland - Geneva', country: 'Switzerland', flag: '🇨🇭', latency: 142, status: 'online', isPremium: false },
+  { id: 'at-1', name: 'Austria - Vienna', country: 'Austria', flag: '🇦🇹', latency: 152, status: 'online', isPremium: false },
   { id: 'no-1', name: 'Norway - Oslo', country: 'Norway', flag: '🇳🇴', latency: 152, status: 'online', isPremium: false },
   { id: 'se-1', name: 'Sweden - Stockholm', country: 'Sweden', flag: '🇸🇪', latency: 150, status: 'online', isPremium: false },
   { id: 'dk-1', name: 'Denmark - Copenhagen', country: 'Denmark', flag: '🇩🇰', latency: 149, status: 'online', isPremium: false },
   { id: 'pl-1', name: 'Poland - Warsaw', country: 'Poland', flag: '🇵🇱', latency: 160, status: 'online', isPremium: false },
+  { id: 'pl-2', name: 'Poland - Krakow', country: 'Poland', flag: '🇵🇱', latency: 165, status: 'online', isPremium: false },
   { id: 'ie-1', name: 'Ireland - Dublin', country: 'Ireland', flag: '🇮🇪', latency: 132, status: 'online', isPremium: false },
   { id: 'be-1', name: 'Belgium - Brussels', country: 'Belgium', flag: '🇧🇪', latency: 138, status: 'online', isPremium: false },
   { id: 'fi-1', name: 'Finland - Helsinki', country: 'Finland', flag: '🇫🇮', latency: 158, status: 'online', isPremium: false },
   { id: 'gr-1', name: 'Greece - Athens', country: 'Greece', flag: '🇬🇷', latency: 172, status: 'online', isPremium: false },
   { id: 'pt-1', name: 'Portugal - Lisbon', country: 'Portugal', flag: '🇵🇹', latency: 160, status: 'online', isPremium: false },
+  { id: 'cz-1', name: 'Czech Republic - Prague', country: 'Czech Republic', flag: '🇨🇿', latency: 158, status: 'online', isPremium: false },
+  { id: 'hu-1', name: 'Hungary - Budapest', country: 'Hungary', flag: '🇭🇺', latency: 162, status: 'online', isPremium: false },
+  { id: 'ro-1', name: 'Romania - Bucharest', country: 'Romania', flag: '🇷🇴', latency: 168, status: 'online', isPremium: false },
+  { id: 'bg-1', name: 'Bulgaria - Sofia', country: 'Bulgaria', flag: '🇧🇬', latency: 170, status: 'online', isPremium: false },
+  { id: 'ua-1', name: 'Ukraine - Kyiv', country: 'Ukraine', flag: '🇺🇦', latency: 175, status: 'online', isPremium: false },
+  { id: 'hr-1', name: 'Croatia - Zagreb', country: 'Croatia', flag: '🇭🇷', latency: 165, status: 'online', isPremium: false },
+  { id: 'sk-1', name: 'Slovakia - Bratislava', country: 'Slovakia', flag: '🇸🇰', latency: 160, status: 'online', isPremium: false },
+  { id: 'lu-1', name: 'Luxembourg - City', country: 'Luxembourg', flag: '🇱🇺', latency: 140, status: 'online', isPremium: false },
   { id: 'tr-1', name: 'Turkey - Istanbul', country: 'Turkey', flag: '🇹🇷', latency: 155, status: 'online', isPremium: false },
-  { id: 'eu-01', name: 'Europe - Alpha Node', country: 'Germany', flag: '🇩🇪', latency: 105, status: 'online', isPremium: false },
-  { id: 'eu-02', name: 'Europe - Beta Node', country: 'UK', flag: '🇬🇧', latency: 110, status: 'online', isPremium: false },
-  { id: 'eu-03', name: 'Europe - Gamma Node', country: 'France', flag: '🇫🇷', latency: 115, status: 'online', isPremium: false },
-  { id: 'eu-04', name: 'Europe - Delta Node', country: 'Netherlands', flag: '🇳🇱', latency: 112, status: 'online', isPremium: false },
-  { id: 'eu-05', name: 'Europe - Epsilon Node', country: 'Poland', flag: '🇵🇱', latency: 120, status: 'online', isPremium: false },
+  { id: 'tr-2', name: 'Turkey - Ankara', country: 'Turkey', flag: '🇹🇷', latency: 160, status: 'online', isPremium: false },
+  { id: 'is-1', name: 'Iceland - Reykjavik', country: 'Iceland', flag: '🇮🇸', latency: 170, status: 'online', isPremium: false },
+  { id: 'ee-1', name: 'Estonia - Tallinn', country: 'Estonia', flag: '🇪🇪', latency: 165, status: 'online', isPremium: false },
+  { id: 'lv-1', name: 'Latvia - Riga', country: 'Latvia', flag: '🇱🇻', latency: 168, status: 'online', isPremium: false },
+  { id: 'lt-1', name: 'Lithuania - Vilnius', country: 'Lithuania', flag: '🇱🇹', latency: 170, status: 'online', isPremium: false },
+  { id: 'si-1', name: 'Slovenia - Ljubljana', country: 'Slovenia', flag: '🇸🇮', latency: 155, status: 'online', isPremium: false },
+  { id: 'cy-1', name: 'Cyprus - Nicosia', country: 'Cyprus', flag: '🇨🇾', latency: 180, status: 'online', isPremium: false },
 
-  // ASIA & OCEANIA (60)
+  // ASIA & OCEANIA (100+)
   { id: 'lk-1', name: 'Sri Lanka - Colombo 01', country: 'Sri Lanka', flag: '🇱🇰', latency: 12, status: 'online', isPremium: false },
   { id: 'lk-2', name: 'Sri Lanka - Colombo 02', country: 'Sri Lanka', flag: '🇱🇰', latency: 14, status: 'online', isPremium: false },
   { id: 'lk-3', name: 'Sri Lanka - Kandy Node', country: 'Sri Lanka', flag: '🇱🇰', latency: 18, status: 'online', isPremium: false },
   { id: 'lk-4', name: 'Sri Lanka - Galle Node', country: 'Sri Lanka', flag: '🇱🇰', latency: 22, status: 'online', isPremium: false },
+  { id: 'lk-5', name: 'Sri Lanka - Jaffna Core', country: 'Sri Lanka', flag: '🇱🇰', latency: 25, status: 'online', isPremium: false },
+  { id: 'lk-6', name: 'Sri Lanka - Negombo Node', country: 'Sri Lanka', flag: '🇱🇰', latency: 16, status: 'online', isPremium: false },
+  { id: 'lk-7', name: 'Sri Lanka - Anuradhapura', country: 'Sri Lanka', flag: '🇱🇰', latency: 24, status: 'online', isPremium: false },
+  { id: 'lk-8', name: 'Sri Lanka - Matara Speed', country: 'Sri Lanka', flag: '🇱🇰', latency: 22, status: 'online', isPremium: false },
   { id: 'jp-1', name: 'Japan - Tokyo 01', country: 'Japan', flag: '🇯🇵', latency: 40, status: 'online', isPremium: false },
   { id: 'jp-2', name: 'Japan - Tokyo 02', country: 'Japan', flag: '🇯🇵', latency: 42, status: 'online', isPremium: false },
   { id: 'jp-3', name: 'Japan - Osaka Hub', country: 'Japan', flag: '🇯🇵', latency: 45, status: 'online', isPremium: false },
+  { id: 'jp-4', name: 'Japan - Yokohama Node', country: 'Japan', flag: '🇯🇵', latency: 43, status: 'online', isPremium: false },
+  { id: 'jp-5', name: 'Japan - Nagoya Core', country: 'Japan', flag: '🇯🇵', latency: 47, status: 'online', isPremium: false },
   { id: 'sg-1', name: 'Singapore - Supreme 01', country: 'Singapore', flag: '🇸🇬', latency: 15, status: 'online', isPremium: false },
   { id: 'sg-2', name: 'Singapore - Supreme 02', country: 'Singapore', flag: '🇸🇬', latency: 18, status: 'online', isPremium: false },
   { id: 'sg-3', name: 'Singapore - Supreme 03', country: 'Singapore', flag: '🇸🇬', latency: 20, status: 'online', isPremium: false },
+  { id: 'sg-4', name: 'Singapore - Supreme 04', country: 'Singapore', flag: '🇸🇬', latency: 22, status: 'online', isPremium: false },
+  { id: 'sg-5', name: 'Singapore - Supreme 05', country: 'Singapore', flag: '🇸🇬', latency: 24, status: 'online', isPremium: false },
   { id: 'au-1', name: 'Australia - Sydney', country: 'Australia', flag: '🇦🇺', latency: 120, status: 'online', isPremium: false },
   { id: 'au-2', name: 'Australia - Melbourne', country: 'Australia', flag: '🇦🇺', latency: 125, status: 'online', isPremium: false },
+  { id: 'au-3', name: 'Australia - Brisbane', country: 'Australia', flag: '🇦🇺', latency: 130, status: 'online', isPremium: false },
+  { id: 'au-4', name: 'Australia - Perth Node', country: 'Australia', flag: '🇦🇺', latency: 135, status: 'online', isPremium: false },
+  { id: 'au-5', name: 'Australia - Adelaide', country: 'Australia', flag: '🇦🇺', latency: 138, status: 'online', isPremium: false },
+  { id: 'nz-1', name: 'New Zealand - Auckland', country: 'New Zealand', flag: '🇳🇿', latency: 140, status: 'online', isPremium: false },
+  { id: 'nz-2', name: 'New Zealand - Wellington', country: 'New Zealand', flag: '🇳🇿', latency: 145, status: 'online', isPremium: false },
   { id: 'in-1', name: 'India - Mumbai Speed', country: 'India', flag: '🇮🇳', latency: 32, status: 'online', isPremium: false },
   { id: 'in-2', name: 'India - Bangalore Hub', country: 'India', flag: '🇮🇳', latency: 35, status: 'online', isPremium: false },
   { id: 'in-3', name: 'India - New Delhi Node', country: 'India', flag: '🇮🇳', latency: 38, status: 'online', isPremium: false },
+  { id: 'in-4', name: 'India - Chennai Core', country: 'India', flag: '🇮🇳', latency: 34, status: 'online', isPremium: false },
   { id: 'hk-1', name: 'Hong Kong - HK Node', country: 'Hong Kong', flag: '🇭🇰', latency: 48, status: 'online', isPremium: false },
+  { id: 'hk-2', name: 'Hong Kong - HK Core', country: 'Hong Kong', flag: '🇭🇰', latency: 50, status: 'online', isPremium: false },
   { id: 'kr-1', name: 'South Korea - Seoul', country: 'South Korea', flag: '🇰🇷', latency: 45, status: 'online', isPremium: false },
+  { id: 'kr-2', name: 'South Korea - Busan', country: 'South Korea', flag: '🇰🇷', latency: 48, status: 'online', isPremium: false },
   { id: 'my-1', name: 'Malaysia - KL Hub', country: 'Malaysia', flag: '🇲🇾', latency: 52, status: 'online', isPremium: false },
+  { id: 'my-2', name: 'Malaysia - Penang Node', country: 'Malaysia', flag: '🇲🇾', latency: 55, status: 'online', isPremium: false },
   { id: 'th-1', name: 'Thailand - Bangkok', country: 'Thailand', flag: '🇹🇭', latency: 48, status: 'online', isPremium: false },
+  { id: 'th-2', name: 'Thailand - Phuket Node', country: 'Thailand', flag: '🇹🇭', latency: 54, status: 'online', isPremium: false },
   { id: 'vn-1', name: 'Vietnam - Hanoi Node', country: 'Vietnam', flag: '🇻🇳', latency: 62, status: 'online', isPremium: false },
+  { id: 'vn-2', name: 'Vietnam - Ho Chi Minh', country: 'Vietnam', flag: '🇻🇳', latency: 65, status: 'online', isPremium: false },
   { id: 'id-1', name: 'Indonesia - Jakarta', country: 'Indonesia', flag: '🇮🇩', latency: 55, status: 'online', isPremium: false },
+  { id: 'id-2', name: 'Indonesia - Bali Node', country: 'Indonesia', flag: '🇮🇩', latency: 60, status: 'online', isPremium: false },
   { id: 'ph-1', name: 'Philippines - Manila', country: 'Philippines', flag: '🇵🇭', latency: 65, status: 'online', isPremium: false },
+  { id: 'ph-2', name: 'Philippines - Cebu Node', country: 'Philippines', flag: '🇵🇭', latency: 70, status: 'online', isPremium: false },
   { id: 'tw-1', name: 'Taiwan - Taipei Node', country: 'Taiwan', flag: '🇹🇼', latency: 50, status: 'online', isPremium: false },
+  { id: 'tw-2', name: 'Taiwan - Kaohsiung', country: 'Taiwan', flag: '🇹🇼', latency: 55, status: 'online', isPremium: false },
   { id: 'ae-1', name: 'UAE - Dubai Supreme', country: 'UAE', flag: '🇦🇪', latency: 68, status: 'online', isPremium: false },
+  { id: 'ae-2', name: 'UAE - Abu Dhabi', country: 'UAE', flag: '🇦🇪', latency: 72, status: 'online', isPremium: false },
+  { id: 'il-1', name: 'Israel - Tel Aviv', country: 'Israel', flag: '🇮🇱', latency: 155, status: 'online', isPremium: false },
+  { id: 'pk-1', name: 'Pakistan - Karachi', country: 'Pakistan', flag: '🇵🇰', latency: 85, status: 'online', isPremium: false },
+  { id: 'pk-2', name: 'Pakistan - Lahore Node', country: 'Pakistan', flag: '🇵🇰', latency: 90, status: 'online', isPremium: false },
+  { id: 'kz-1', name: 'Kazakhstan - Almaty', country: 'Kazakhstan', flag: '🇰🇿', latency: 170, status: 'online', isPremium: false },
+  { id: 'jo-1', name: 'Jordan - Amman', country: 'Jordan', flag: '🇯🇴', latency: 165, status: 'online', isPremium: false },
+  { id: 'sa-1', name: 'Saudi Arabia - Riyadh', country: 'Saudi Arabia', flag: '🇸🇦', latency: 160, status: 'online', isPremium: false },
   { id: 'as-nitro-1', name: 'Nitro - SG Extreme', country: 'Singapore', flag: '🇸🇬', latency: 10, status: 'online', isPremium: false },
   { id: 'as-nitro-2', name: 'Nitro - Tokyo Core', country: 'Japan', flag: '🇯🇵', latency: 35, status: 'online', isPremium: false },
   { id: 'as-nitro-3', name: 'Nitro - Mumbai Core', country: 'India', flag: '🇮🇳', latency: 28, status: 'online', isPremium: false },
 
-  // SOUTH AMERICA & AFRICA (20)
+  // SOUTH AMERICA & AFRICA (60+)
   { id: 'br-1', name: 'Brazil - Sao Paulo 01', country: 'Brazil', flag: '🇧🇷', latency: 145, status: 'online', isPremium: false },
   { id: 'br-2', name: 'Brazil - Sao Paulo 02', country: 'Brazil', flag: '🇧🇷', latency: 148, status: 'online', isPremium: false },
-  { id: 'ar-1', name: 'Argentina - BA Node', country: 'Argentina', flag: '🇦🇷', latency: 160, status: 'online', isPremium: false },
-  { id: 'za-1', name: 'South Africa - Joburg', country: 'South Africa', flag: '🇿🇦', latency: 270, status: 'online', isPremium: false },
-  { id: 'ng-1', name: 'Nigeria - Lagos Hub', country: 'Nigeria', flag: '🇳🇬', latency: 305, status: 'online', isPremium: false },
-  { id: 'eg-1', name: 'Egypt - Cairo Node', country: 'Egypt', flag: '🇪🇬', latency: 220, status: 'online', isPremium: false },
+  { id: 'br-3', name: 'Brazil - Rio de Janeiro', country: 'Brazil', flag: '🇧🇷', latency: 152, status: 'online', isPremium: false },
+  { id: 'br-4', name: 'Brazil - Brasilia Node', country: 'Brazil', flag: '🇧🇷', latency: 155, status: 'online', isPremium: false },
+  { id: 'ar-1', name: 'Argentina - Buenos Aires', country: 'Argentina', flag: '🇦🇷', latency: 160, status: 'online', isPremium: false },
+  { id: 'ar-2', name: 'Argentina - Cordoba', country: 'Argentina', flag: '🇦🇷', latency: 165, status: 'online', isPremium: false },
   { id: 'cl-1', name: 'Chile - Santiago', country: 'Chile', flag: '🇨🇱', latency: 165, status: 'online', isPremium: false },
-  { id: 'co-1', name: 'Colombia - Bogota', country: 'Colombia', flag: '🇨🇴', latency: 110, status: 'online', isPremium: false },
-  { id: 'mx-3', name: 'Mexico - Monterrey', country: 'Mexico', flag: '🇲🇽', latency: 102, status: 'online', isPremium: false },
-  { id: 'pe-1', name: 'Peru - Lima Hub', country: 'Peru', flag: '🇵🇪', latency: 130, status: 'online', isPremium: false },
-  { id: 'br-3', name: 'Brazil - Brasilia', country: 'Brazil', flag: '🇧🇷', latency: 152, status: 'online', isPremium: false },
-  { id: 'ma-1', name: 'Morocco - Casablanca', country: 'Morocco', flag: '🇲🇦', latency: 180, status: 'online', isPremium: false },
-  { id: 'ke-1', name: 'Kenya - Nairobi', country: 'Kenya', flag: '🇰🇪', latency: 285, status: 'online', isPremium: false },
-  { id: 'gh-1', name: 'Ghana - Accra', country: 'Ghana', flag: '🇬🇭', latency: 300, status: 'online', isPremium: false },
-  { id: 'dz-1', name: 'Algeria - Algiers', country: 'Algeria', flag: '🇩🇿', latency: 190, status: 'online', isPremium: false },
+  { id: 'cl-2', name: 'Chile - Valparaiso', country: 'Chile', flag: '🇨🇱', latency: 168, status: 'online', isPremium: false },
+  { id: 'co-1', name: 'Colombia - Bogota', country: 'Colombia', flag: '🇨🇴', latency: 170, status: 'online', isPremium: false },
+  { id: 'co-2', name: 'Colombia - Medellin', country: 'Colombia', flag: '🇨🇴', latency: 172, status: 'online', isPremium: false },
+  { id: 'pe-1', name: 'Peru - Lima Node', country: 'Peru', flag: '🇵🇪', latency: 175, status: 'online', isPremium: false },
+  { id: 'uy-1', name: 'Uruguay - Montevideo', country: 'Uruguay', flag: '🇺🇾', latency: 162, status: 'online', isPremium: false },
+  { id: 'za-1', name: 'South Africa - Cape Town', country: 'South Africa', flag: '🇿🇦', latency: 185, status: 'online', isPremium: false },
+  { id: 'za-2', name: 'South Africa - Johannesburg', country: 'South Africa', flag: '🇿🇦', latency: 190, status: 'online', isPremium: false },
+  { id: 'za-3', name: 'South Africa - Durban Hub', country: 'South Africa', flag: '🇿🇦', latency: 195, status: 'online', isPremium: false },
+  { id: 'eg-1', name: 'Egypt - Cairo Node', country: 'Egypt', flag: '🇪🇬', latency: 175, status: 'online', isPremium: false },
+  { id: 'ng-1', name: 'Nigeria - Lagos', country: 'Nigeria', flag: '🇳🇬', latency: 192, status: 'online', isPremium: false },
+  { id: 'ng-2', name: 'Nigeria - Abuja Core', country: 'Nigeria', flag: '🇳🇬', latency: 195, status: 'online', isPremium: false },
+  { id: 'ke-1', name: 'Kenya - Nairobi Node', country: 'Kenya', flag: '🇰🇪', latency: 188, status: 'online', isPremium: false },
+  { id: 'ma-1', name: 'Morocco - Casablanca', country: 'Morocco', flag: '🇲🇦', latency: 165, status: 'online', isPremium: false },
+  { id: 'gh-1', name: 'Ghana - Accra Node', country: 'Ghana', flag: '🇬🇭', latency: 198, status: 'online', isPremium: false },
+  { id: 'dz-1', name: 'Algeria - Algiers', country: 'Algeria', flag: '🇩🇿', latency: 170, status: 'online', isPremium: false },
+  { id: 'tn-1', name: 'Tunisia - Tunis', country: 'Tunisia', flag: '🇹🇳', latency: 168, status: 'online', isPremium: false },
+  { id: 'mu-1', name: 'Mauritius - Port Louis', country: 'Mauritius', flag: '🇲🇺', latency: 190, status: 'online', isPremium: false },
+  { id: 'mt-1', name: 'Malta - Valletta', country: 'Malta', flag: '🇲🇹', latency: 158, status: 'online', isPremium: false },
+  { id: 'ec-1', name: 'Ecuador - Quito', country: 'Ecuador', flag: '🇪🇨', latency: 178, status: 'online', isPremium: false },
+  { id: 've-1', name: 'Venezuela - Caracas', country: 'Venezuela', flag: '🇻🇪', latency: 185, status: 'online', isPremium: false },
+  { id: 'cr-1', name: 'Costa Rica - San Jose', country: 'Costa Rica', flag: '🇨🇷', latency: 110, status: 'online', isPremium: false },
+  { id: 'pa-1', name: 'Panama - City Node', country: 'Panama', flag: '🇵🇦', latency: 105, status: 'online', isPremium: false },
 ].sort((a,b) => a.name.localeCompare(b.name)) as Server[];
 
 
 export const Dashboard = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
+  const [currentTime, setCurrentTime] = useState(new Date());
+  const [showToast, setShowToast] = useState(false);
+  const [toastMsg, setToastMsg] = useState('');
   const [isConnected, setIsConnected] = useState(false);
   const [isConnecting, setIsConnecting] = useState(false);
+  const [connectionPhase, setConnectionPhase] = useState('');
   const [durationSeconds, setDurationSeconds] = useState(0);
   const [selectedServer, setSelectedServer] = useState<Server>(SERVERS[0]);
   const [showServers, setShowServers] = useState(false);
@@ -139,6 +225,11 @@ export const Dashboard = () => {
     ip: '112.134.120.45',
     location: 'Location (Exposed)'
   });
+
+  useEffect(() => {
+    const timer = setInterval(() => setCurrentTime(new Date()), 60000);
+    return () => clearInterval(timer);
+  }, []);
 
   useEffect(() => {
     let interval: any;
@@ -162,13 +253,37 @@ export const Dashboard = () => {
   const handleConnect = () => {
     if (isConnected) {
       setIsConnected(false);
+      setConnectionPhase('');
+      setToastMsg('DISCONNECTED FROM TUNNEL');
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 3000);
       return;
     }
 
     setIsConnecting(true);
+    setToastMsg('ESTABLISHING SECURE CONNECTION');
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 2000);
+    
+    // Technical sequence phases
+    const phases = [
+      { text: 'Handshaking...', delay: 600 },
+      { text: 'Authenticating...', delay: 1200 },
+      { text: 'Optimizing Path...', delay: 1800 },
+      { text: 'Finalizing Tunnel...', delay: 2400 }
+    ];
+
+    phases.forEach((p, idx) => {
+      setTimeout(() => setConnectionPhase(p.text), p.delay);
+    });
+
     setTimeout(() => {
       setIsConnecting(false);
       setIsConnected(true);
+      setConnectionPhase('Connected');
+      setToastMsg(`SECURE TUNNEL ACTIVE: ${selectedServer.country}`);
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 3000);
       setStats(prev => ({
         ...prev,
         ping: selectedServer.latency,
@@ -177,15 +292,62 @@ export const Dashboard = () => {
         upload: (Math.random() * 300 + 50).toFixed(1),
         location: `${selectedServer.name}, ${selectedServer.country}`
       }));
-    }, 2000);
+    }, 2500);
   };
 
   return (
     <div className="w-full h-screen bg-bg-main text-white font-sans flex flex-col md:flex-row overflow-hidden relative sri-lankan-pattern">
+      {/* Android Status Bar Simulation */}
+      <div className="md:hidden w-full h-6 px-4 flex items-center justify-between text-[10px] font-bold bg-black/40 backdrop-blur-sm z-[60] border-b border-white/5">
+        <div className="flex items-center gap-2">
+          <span>{currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })}</span>
+          {isConnected && <Key size={10} className="text-brand-gold ml-1 animate-pulse" />}
+        </div>
+        <div className="flex items-center gap-2">
+          <Activity size={10} className="text-brand-gold" />
+          <div className="flex gap-0.5 items-end h-2">
+            <div className={`w-0.5 h-[40%] ${isConnected ? 'bg-brand-gold' : 'bg-white/40'}`} />
+            <div className={`w-0.5 h-[60%] ${isConnected ? 'bg-brand-gold' : 'bg-white/40'}`} />
+            <div className={`w-0.5 h-[80%] ${isConnected ? 'bg-white' : 'bg-white/40'}`} />
+            <div className={`w-0.5 h-full ${isConnected ? 'bg-white' : 'bg-white/40'}`} />
+          </div>
+          <div className="w-4 h-2 border border-white/40 rounded-sm relative">
+            <div className="absolute inset-y-0 left-0 bg-white w-[90%]" />
+          </div>
+        </div>
+      </div>
+
+      {/* Persistent Connection Toast */}
+      <AnimatePresence>
+        {showToast && (
+          <motion.div 
+            initial={{ y: -100, opacity: 0 }}
+            animate={{ y: 20, opacity: 1 }}
+            exit={{ y: -100, opacity: 0 }}
+            className="fixed top-12 left-1/2 -translate-x-1/2 z-[100] w-[90%] md:w-auto"
+          >
+            <div className="bg-bg-secondary border border-white/10 px-6 py-3 rounded-2xl flex items-center gap-3 shadow-2xl backdrop-blur-xl">
+              <div className="p-1.5 bg-brand-gold/20 rounded-lg">
+                <Key size={14} className="text-brand-gold" />
+              </div>
+              <p className="text-[10px] font-black italic tracking-widest uppercase">{toastMsg}</p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Mobile Header */}
       <div className="md:hidden flex items-center justify-between p-4 bg-bg-secondary border-b border-white/10 z-30">
         <div className="flex items-center gap-2">
-          {isConnected && <Key size={16} className="text-brand-gold mr-1" />}
+          {isConnected && (
+             <motion.div
+               initial={{ scale: 0 }}
+               animate={{ scale: 1 }}
+               className="bg-brand-gold/20 p-1.5 rounded-lg border border-brand-gold/30 mr-1"
+             >
+               <Key size={14} className="text-brand-gold" />
+             </motion.div>
+          )}
           <VPNLogo className="scale-50" />
           <span className="text-lg font-bold tracking-tight uppercase italic">PS<span className="text-brand-gold">VPN</span></span>
         </div>
@@ -287,7 +449,7 @@ export const Dashboard = () => {
                       )}
                     </div>
                     <span className={`text-[10px] tracking-[0.4em] uppercase mt-4 font-black text-center ${isConnected ? 'text-brand-gold' : 'text-white/40'}`}>
-                      {isConnecting ? 'ESTABLISHING...' : isConnected ? 'DISCONNECT' : 'START TUNNEL'}
+                      {isConnecting ? connectionPhase : isConnected ? 'DISCONNECT' : 'START TUNNEL'}
                     </span>
                   </div>
                 </motion.div>
